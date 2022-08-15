@@ -62,14 +62,11 @@ class LinkedList {
   }
 
   moveLeft(cur) {
-    if (cur.prev == null) {
-      return cur;
-    } else {
-      return cur.prev;
-    }
+    if (cur.prev == null) return cur;
+     else return cur.prev;
   }
   moveRight(cur) {
-    if (!cur.next) return cur;
+    if (cur.next == null) return cur;
     else return cur.next;
   }
 }
