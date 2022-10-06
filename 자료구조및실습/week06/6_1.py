@@ -1,5 +1,3 @@
-from copy import deepcopy
-
 class Node:
     def __init__(self, el, link=None):
         self.data = el
@@ -87,6 +85,7 @@ class LinkedList:
                 node = node.link
             print(None) 
 
+
 class Term(Node):
     def __init__(self, coef, expo):
         self.coef = coef # 계수
@@ -94,15 +93,13 @@ class Term(Node):
     
 
 class SparsePoly(LinkedList):
-    
     def __init__(self):
         super().__init__()
     
     
     def read(self):
-        
-        ip = input("계수 차수 입력(종료:-1) :").split(' ')
-        # print(ip)
+        ip = input("입력(계수 지수 계수 지수 ... [엔터]):").split(' ')
+
         for i in range(0, len(ip), 2):
             coef = int(ip[i])
             expo = int(ip[i+1])
@@ -150,9 +147,7 @@ class SparsePoly(LinkedList):
         return poly
 
 
-
-    def add(self, polyB):
-        
+    def add(self, polyB):    
         # 먼저 리스트 하나로 만들기
         sp = []
         result = [] # 더한 결과 다항식
@@ -192,15 +187,15 @@ class SparsePoly(LinkedList):
             if i+1 == len(terms): break
 
         result = sorted(result, key=lambda term: term[1], reverse=True)
-        addResult = SparsePoly()
+        d = SparsePoly()
         
         for term in result:
             coef = int(term[0])
             expo = int(term[1])
             term = Term(coef, expo)
-            addResult.insert(addResult.size(), term)
+            d.insert(d.size(), term)
 
-        return addResult
+        return d
 
 
     def neg(self):
@@ -229,24 +224,35 @@ class SparsePoly(LinkedList):
         result = tmp.add(subTerms)
         return result
 
-sparsePoly = SparsePoly()
-sparsePoly.read()
-polyB = SparsePoly()
-polyB.read()
+a = SparsePoly()
+b = SparsePoly()
+a.read()
+b.read()
 
-sparsePoly.display("    A = ")
-polyB.display("    B = ")
+a.display("    A = ")
+b.display("    B = ")
+b.neg()
+b.display("    -B = ")
+b.neg()
+b.display("    B = ")
 
-addResult = sparsePoly.add(polyB)
-addResult.display("  A+B = ")
+d = a.add(b)
+d.display("    A+B = ")
+e = a.sub(b)
+e.display("    A-B= ")
+b.neg()
 
-subResult = sparsePoly.sub(polyB)
-subResult.display("  A-B = ")
-polyB.neg()
+
+f = a.mult(b)
+f.display("    A*B= ")
+
+# subResult = a.sub(b)
+# subResult.display("  A-B = ")
+# b.neg()
 
 
-multResult =  sparsePoly.mult(polyB)
-multResult.display("  A*B = ")
+# multResult =  a.mult(b)
+# multResult.display("  A*B = ")
 
 # 5 2 -3 1 12 0
 # 2 3 -6 2 -4 0
