@@ -91,28 +91,3 @@ class MinHeap extends Heap {
   dequeue = () => this.remove()
   isEmpty = () => this.heap.length <= 0
 }
-
-let input = require("fs")
-  .readFileSync("/dev/stdin")
-  .toString()
-  .trim()
-  .split("\n");
-
-// console.log(input)
-
-const N = parseInt(input[0])
-
-let minHeap = new MinHeap()
-let answer = []
-for (let i=1; i<=N; i++) {
-  const x = parseInt(input[i])
-  if (x == 0) {
-    if (minHeap.isEmpty()) answer.push(0)
-    else {
-      let minValue = minHeap.dequeue()
-      answer.push(minValue.key)
-    }
-  } else minHeap.enqueue(x)
-}
-
-console.log(answer.join('\n'))
